@@ -31,6 +31,9 @@
         .entryObjectRotationWrapperWorkspace {
             background-color: white !important;
         }
+        .close.icon {
+            display: none;
+        }
     </style>
 </head>
 
@@ -53,6 +56,27 @@
         </div>
         <div id="download_button" class="ui item">
             <a id="download" class="ui primary button" download="project.wcp">PC에 저장</a>
+        </div>
+    </div>
+
+    <div class="ui large modal">
+        <i class="close icon"></i>
+        <div class="header">
+            오브젝트 추가
+        </div>
+        <div class="image content">
+            <div id="desc" class="description">
+
+            </div>
+        </div>
+        <div class="actions">
+            <div class="ui black deny button">
+                Nope
+            </div>
+            <div class="ui positive right labeled icon button">
+                Yep, that's me
+                <i class="checkmark icon"></i>
+            </div>
         </div>
     </div>
 
@@ -143,323 +167,21 @@
     </script>
     <!--main script-->
     <script>
+        let defaultProject = { "objects": [{ "id": "7y0y", "name": "엔트리봇", "script": [[{ "id": "gu09", "x": 50, "y": 30, "type": "when_run_button_click", "params": [null], "statements": [], "movable": null, "deletable": 1, "emphasized": false, "readOnly": null, "copyable": true, "extensions": [] }, { "id": "u3hg", "x": 0, "y": 0, "type": "_if", "params": [{ "id": "4wmw", "x": 0, "y": 0, "type": "boolean_basic_operator", "params": [{ "id": "hysy", "x": 0, "y": 0, "type": "get_browser", "params": [], "statements": [], "movable": null, "deletable": 1, "emphasized": false, "readOnly": null, "copyable": true, "extensions": [] }, "EQUAL", { "id": "uhiz", "x": 0, "y": 0, "type": "text", "params": ["Firefox 74"], "statements": [], "movable": null, "deletable": 1, "emphasized": false, "readOnly": null, "copyable": true, "extensions": [] }], "statements": [], "movable": null, "deletable": 1, "emphasized": false, "readOnly": null, "copyable": true, "extensions": [] }, null], "statements": [[{ "id": "037h", "x": 0, "y": 0, "type": "toast_success", "params": [{ "id": "lbv8", "x": 0, "y": 0, "type": "text", "params": ["Hello, world!"], "statements": [], "movable": null, "deletable": 1, "emphasized": false, "readOnly": null, "copyable": true, "extensions": [] }, null], "statements": [], "movable": null, "deletable": 1, "emphasized": false, "readOnly": null, "copyable": true, "extensions": [] }]], "movable": null, "deletable": 1, "emphasized": false, "readOnly": null, "copyable": true, "extensions": [] }]], "objectType": "sprite", "rotateMethod": "free", "scene": "7dwq", "sprite": { "pictures": [{ "id": "vx80", "dimension": { "width": 284, "height": 350, "scaleX": 0.3154574132492113, "scaleY": 0.3154574132492113 }, "fileurl": "/lib/entry-js/images/media/entrybot1.png", "name": "엔트리봇_걷기1", "scale": 100, "imageType": "png" }, { "id": "4t48", "dimension": { "width": 284, "height": 350 }, "fileurl": "/lib/entry-js/images/media/entrybot2.png", "name": "엔트리봇_걷기2", "scale": 100, "imageType": "png" }], "sounds": [{ "duration": 1.3, "ext": ".mp3", "id": "8el5", "fileurl": "/lib/entry-js/images/media/bark.mp3", "name": "강아지 짖는소리" }] }, "selectedPictureId": "vx80", "lock": false, "entity": { "x": 0, "y": 0, "regX": 142, "regY": 175, "scaleX": 0.3154574132492113, "scaleY": 0.3154574132492113, "rotation": 0, "direction": 90, "width": 284, "height": 350, "font": "undefinedpx", "visible": true } }], "scenes": [{ "id": "7dwq", "name": "장면 1" }], "variables": [{ "name": "초시계", "id": "brih", "visible": false, "value": 0, "variableType": "timer", "isCloud": false, "cloudDate": false, "object": null, "x": 134, "y": -70 }, { "name": "대답", "id": "1vu8", "visible": false, "value": 0, "variableType": "answer", "isCloud": false, "cloudDate": false, "object": null, "x": 150, "y": -100 }], "messages": [], "functions": [], "speed": 60, "interface": { "menuWidth": 280, "canvasWidth": 480, "object": "7y0y" }, "expansionBlocks": [] }
         window.PUBLIC_PATH_FOR_ENTRYJS = '/lib/entry-js/dist/';
-        $(document).ready(function () {
-            var initOption = {
+        $(document).ready(() => {
+            let initOption = {
                 type: 'workspace',
                 textCodingEnable: true,
             };
             Entry.init(document.getElementById('workspace'), initOption);
-            //Entry.loadProject();
-            Entry.loadProject({
-    objects: [
-        {
-            id: "7y0y",
-            name: "엔트리봇",
-            script: [
-                [
-                    {
-                        id: "gu09",
-                        x: 50,
-                        y: 30,
-                        type: "when_run_button_click",
-                        params: [
-                            null
-
-                        ],
-                        statements: [
-
-
-                        ],
-                        movable: null,
-                        deletable: 1,
-                        emphasized: false,
-                        readOnly: null,
-                        copyable: true,
-                        extensions: [
-
-
-                        ]
-
-                    },
-                    {
-                        id: "u3hg",
-                        x: 0,
-                        y: 0,
-                        type: "_if",
-                        params: [
-                            {
-                                id: "4wmw",
-                                x: 0,
-                                y: 0,
-                                type: "boolean_basic_operator",
-                                params: [
-                                    {
-                                        id: "hysy",
-                                        x: 0,
-                                        y: 0,
-                                        type: "get_browser",
-                                        params: [
-
-
-                                        ],
-                                        statements: [
-
-
-                                        ],
-                                        movable: null,
-                                        deletable: 1,
-                                        emphasized: false,
-                                        readOnly: null,
-                                        copyable: true,
-                                        extensions: [
-
-
-                                        ]
-
-                                    },
-                                    "EQUAL",
-                                    {
-                                        id: "uhiz",
-                                        x: 0,
-                                        y: 0,
-                                        type: "text",
-                                        params: [
-                                            "Firefox 74"
-
-                                        ],
-                                        statements: [
-
-
-                                        ],
-                                        movable: null,
-                                        deletable: 1,
-                                        emphasized: false,
-                                        readOnly: null,
-                                        copyable: true,
-                                        extensions: [
-
-
-                                        ]
-
-                                    }
-
-                                ],
-                                statements: [
-
-
-                                ],
-                                movable: null,
-                                deletable: 1,
-                                emphasized: false,
-                                readOnly: null,
-                                copyable: true,
-                                extensions: [
-
-
-                                ]
-
-                            },
-                            null
-
-                        ],
-                        statements: [
-                            [
-                                {
-                                    id: "037h",
-                                    x: 0,
-                                    y: 0,
-                                    type: "toast_success",
-                                    params: [
-                                        {
-                                            id: "lbv8",
-                                            x: 0,
-                                            y: 0,
-                                            type: "text",
-                                            params: [
-                                                "Hello, world!"
-
-                                            ],
-                                            statements: [
-
-
-                                            ],
-                                            movable: null,
-                                            deletable: 1,
-                                            emphasized: false,
-                                            readOnly: null,
-                                            copyable: true,
-                                            extensions: [
-
-
-                                            ]
-
-                                        },
-                                        null
-
-                                    ],
-                                    statements: [
-
-
-                                    ],
-                                    movable: null,
-                                    deletable: 1,
-                                    emphasized: false,
-                                    readOnly: null,
-                                    copyable: true,
-                                    extensions: [
-
-
-                                    ]
-
-                                }
-
-                            ]
-
-                        ],
-                        movable: null,
-                        deletable: 1,
-                        emphasized: false,
-                        readOnly: null,
-                        copyable: true,
-                        extensions: [
-
-
-                        ]
-
-                    }
-
-                ]
-
-            ],
-            objectType: "sprite",
-            rotateMethod: "free",
-            scene: "7dwq",
-            sprite: {
-                pictures: [
-                    {
-                        id: "vx80",
-                        dimension: {
-                            width: 284,
-                            height: 350,
-                            scaleX: 0.3154574132492113,
-                            scaleY: 0.3154574132492113
-
-                        },
-                        fileurl: "/lib/entry-js/images/media/entrybot1.png",
-                        name: "엔트리봇_걷기1",
-                        scale: 100,
-                        imageType: "png"
-
-                    },
-                    {
-                        id: "4t48",
-                        dimension: {
-                            width: 284,
-                            height: 350
-
-                        },
-                        fileurl: "/lib/entry-js/images/media/entrybot2.png",
-                        name: "엔트리봇_걷기2",
-                        scale: 100,
-                        imageType: "png"
-
-                    }
-
-                ],
-                sounds: [
-                    {
-                        duration: 1.3,
-                        ext: ".mp3",
-                        id: "8el5",
-                        fileurl: "/lib/entry-js/images/media/bark.mp3",
-                        name: "강아지 짖는소리"
-
-                    }
-
-                ]
-
-            },
-            selectedPictureId: "vx80",
-            lock: false,
-            entity: {
-                x: 0,
-                y: 0,
-                regX: 142,
-                regY: 175,
-                scaleX: 0.3154574132492113,
-                scaleY: 0.3154574132492113,
-                rotation: 0,
-                direction: 90,
-                width: 284,
-                height: 350,
-                font: "undefinedpx",
-                visible: true
-
-            }
-
-        }
-
-    ],
-    scenes: [
-        {
-            id: "7dwq",
-            name: "장면 1"
-
-        }
-
-    ],
-    variables: [
-        {
-            name: "초시계",
-            id: "brih",
-            visible: false,
-            value: 0,
-            variableType: "timer",
-            isCloud: false,
-            cloudDate: false,
-            object: null,
-            x: 134,
-            y: -70
-
-        },
-        {
-            name: "대답",
-            id: "1vu8",
-            visible: false,
-            value: 0,
-            variableType: "answer",
-            isCloud: false,
-            cloudDate: false,
-            object: null,
-            x: 150,
-            y: -100
-
-        }
-
-    ],
-    messages: [
-
-
-    ],
-    functions: [
-
-
-    ],
-    speed: 60,
-    interface: {
-        menuWidth: 280,
-        canvasWidth: 480,
-        object: "7y0y"
-
-    },
-    expansionBlocks: [
-
-
-    ]
-})
+            Entry.loadProject(defaultProject);
+            $('.entryEngineButtonWorkspace_w.entryAddButtonWorkspace_w').click(() => {
+                $('.large.modal').modal('show');
+            });
         });
     </script>
+    <script src="index.js"></script>
 </body>
 
 </html>
