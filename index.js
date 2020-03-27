@@ -32,6 +32,12 @@ const loadObject = (name) => {
     }, 0);
 };
 
+const exportProject = () => {
+    $('#saveCode').val(JSON.stringify(Entry.exportProject()))
+};
+
+$('#saveCode').val(JSON.parse(res).link)
+
 const name = [
     'icon_ai',
     'icon_files',

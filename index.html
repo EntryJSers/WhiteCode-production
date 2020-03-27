@@ -14,6 +14,28 @@
     <meta property="og:title" content="WhiteCode" />
     <meta property="og:description" content="entryjs 기반의 블록 코딩 사이트" />
     <meta property="og:image" content="https://i.imgur.com/K7eGH4f.png" />
+    <style>
+        .entryScene,
+        #workspace,
+        .entryPlayground,
+        #entryCategoryTab,
+        .entryCategoryListWorkspace,
+        .blockMenuContainer,
+        .entryContainerListWorkspace,
+        .entryContainerListElementWorkspace {
+            background-color: whitesmoke;
+        }
+
+        .entryBoard,
+        .selectedObject,
+        .entryObjectRotationWrapperWorkspace {
+            background-color: white !important;
+        }
+
+        .close.icon {
+            display: none;
+        }
+    </style>
 </head>
 
 <body>
@@ -28,13 +50,13 @@
             <button id="save" class="ui primary button">저장</button>
         </div>
         <div class="ui item">
+            <button id="load" class="ui red button">불러오기</button>
+        </div>
+        <div class="ui item">
             <button class="ui green button" onclick="changeWorkspaceMode('block')">블록</button>
         </div>
         <div class="ui item">
             <button class="ui yellow button" onclick="changeWorkspaceMode('python')">파이썬</button>
-        </div>
-        <div id="download_button" class="ui item">
-            <a id="download" class="ui primary button" download="project.wcp">PC에 저장</a>
         </div>
     </div>
 
@@ -49,11 +71,47 @@
             </div>
         </div>
         <div class="actions">
-            <div class="ui black deny button">
-                Nope
-            </div>
             <div class="ui positive right labeled icon button">
-                Yep, that's me
+                완료
+                <i class="checkmark icon"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="ui save modal">
+        <i class="close icon"></i>
+        <div class="header">
+            파일 저장
+        </div>
+        <div class="content">
+            <div id="desc" class="description">
+                <div class="ui form">
+                    <textarea id="saveCode" readonly></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="actions">
+            <div class="ui positive right labeled icon button">
+                완료
+                <i class="checkmark icon"></i>
+            </div>
+        </div>
+    </div>
+    <div class="ui load modal">
+        <i class="close icon"></i>
+        <div class="header">
+            파일 불러오기
+        </div>
+        <div class="content">
+            <div id="desc" class="description">
+                <div class="ui form">
+                    <textarea id="loadCode"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="actions">
+            <div id="loadBtn" class="ui positive right labeled icon button">
+                완료
                 <i class="checkmark icon"></i>
             </div>
         </div>
@@ -101,27 +159,6 @@
     <script src="./lib/entry-js/extern/util/static.js"></script>
     <script src="./lib/entry-js/dist/entry.js"></script>
     <script src="./lib/entry-js/dist/0.js"></script>
-
-    <script>
-        (function () {
-            var textFile = null,
-                makeTextFile = function (text) {
-                    var data = new Blob([text], { type: 'text/plain' });
-                    // If we are replacing a previously generated file we need to
-                    // manually revoke the object URL to avoid memory leaks.
-                    if (textFile !== null) {
-                        window.URL.revokeObjectURL(textFile);
-                    }
-                    textFile = window.URL.createObjectURL(data);
-                    return textFile;
-                };
-            document.getElementById('download').addEventListener('click', function () {
-                $('#download_button').html(`<a id="download" class="ui primary button" download="${$('#title').val()}.wcp">PC에 저장</a>`);
-                var link = document.getElementById('download');
-                link.href = makeTextFile(JSON.stringify(Entry.exportProject()));
-            }, false);
-        })();
-    </script>
     <script>
         function changeWorkspaceMode(mode) {
             const option = {};
@@ -157,6 +194,18 @@
             Entry.loadProject(defaultProject);
             $('.entryEngineButtonWorkspace_w.entryAddButtonWorkspace_w').click(() => {
                 $('.large.modal').modal('show');
+            });
+            $('#save').click(() => {
+                exportProject()
+                $('.save.modal').modal('show');
+            });
+            $('#load').click(() => {
+                $('.load.modal').modal('show');
+            });
+            $('#loadBtn').click(() => {
+                Entry.clearProject();
+                Entry.loadProject(JSON.parse($('#loadCode').val()));
+                $('#loadCode').val('');
             });
         });
     </script>
